@@ -1,0 +1,26 @@
+﻿<Application x:Class="SportClub.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:SportClub.ViewModels"
+             xmlns:vw="clr-namespace:SportClub.Views">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
+            <vw:ClientsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TrainersViewModel}">
+            <vw:TrainersView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WorkoutsViewModel}">
+            <vw:WorkoutsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SubscriptionsViewModel}">
+            <vw:SubscriptionsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RoomsViewModel}">
+            <vw:RoomsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EquipmentViewModel}">
+            <vw:EquipmentView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
