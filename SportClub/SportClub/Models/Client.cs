@@ -15,7 +15,7 @@ namespace SportClub.Models
 		public int Id { get; set; }
 
 		[Column("full_name")]
-		public string FullName { get; set; }
+		public string? FullName { get; set; }
 
 		[Column("phone_num")]
 		public string PhoneNum { get; set; }

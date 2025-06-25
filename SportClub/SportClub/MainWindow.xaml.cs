@@ -1,4 +1,9 @@
-﻿using SportClub.ViewModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using SportClub.Data;
+using SportClub.Models;
+using SportClub.Services;
+using SportClub.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,15 +17,16 @@ using System.Windows.Shapes;
 
 namespace SportClub
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
     {
-		public MainWindow(MainViewModel viewModel)
+
+		public MainWindow(MainViewModel vm)
 		{
-			DataContext = viewModel;  // Установка DataContext
-			InitializeComponent();    // Инициализация компонентов
+			InitializeComponent();
+			DataContext = vm; // ничего вручную не создаём
 		}
 	}
 }

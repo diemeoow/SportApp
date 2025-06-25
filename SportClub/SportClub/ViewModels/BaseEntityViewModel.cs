@@ -13,6 +13,17 @@ namespace SportClub.ViewModels
 		protected readonly IRepository<T> _repo;
 		public ObservableCollection<T> Items { get; } = new();
 
+		private T _selectedItem;
+		public T SelectedItem
+		{
+			get => _selectedItem;
+			set
+			{
+				_selectedItem = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public ICommand LoadCommand { get; }
 		public ICommand AddCommand { get; }
 		public ICommand DeleteCommand { get; }
@@ -24,8 +35,9 @@ namespace SportClub.ViewModels
 
 			LoadCommand = new RelayCommand(async _ => await LoadAsync());
 			AddCommand = new RelayCommand(async _ => await AddAsync());
-			DeleteCommand = new RelayCommand(async obj => await DeleteAsync(obj as T));
-			ImportCommand = new RelayCommand(async objs => {
+			DeleteCommand = new RelayCommand(async _ => await DeleteAsync(SelectedItem));
+			ImportCommand = new RelayCommand(async objs =>
+			{
 				if (objs is T[] array) await ImportAsync(array);
 			});
 		}
@@ -42,7 +54,7 @@ namespace SportClub.ViewModels
 		protected async Task DeleteAsync(T entity)
 		{
 			if (entity == null) return;
-			var id = (int)typeof(T).GetProperty("Id").GetValue(entity);
+			var id = (int)typeof(T).GetProperty("Id")?.GetValue(entity);
 			await _repo.DeleteAsync(id);
 			await LoadAsync();
 		}

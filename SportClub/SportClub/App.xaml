@@ -1,26 +1,45 @@
 ﻿<Application x:Class="SportClub.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vw="clr-namespace:SportClub.Views"
              xmlns:vm="clr-namespace:SportClub.ViewModels"
-             xmlns:vw="clr-namespace:SportClub.Views">
+             xmlns:views="clr-namespace:SportClub.Views">
     <Application.Resources>
+        <DropShadowEffect x:Key="GlobalShadow" BlurRadius="8" ShadowDepth="2" />
+
+        <!-- DataTemplate-ы для навигации -->
         <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
-            <vw:ClientsView/>
+            <views:ClientsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:TrainersViewModel}">
-            <vw:TrainersView/>
+            <views:TrainersView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WorkoutsViewModel}">
-            <vw:WorkoutsView/>
+            <views:WorkoutsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SubscriptionsViewModel}">
-            <vw:SubscriptionsView/>
+            <views:SubscriptionsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:RoomsViewModel}">
-            <vw:RoomsView/>
+            <views:RoomsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EquipmentViewModel}">
-            <vw:EquipmentView/>
+            <views:EquipmentView/>
         </DataTemplate>
+        <!-- App.xaml Resources -->
+        <SolidColorBrush x:Key="AppBackground" Color="#F3F4F6"/>
+        <SolidColorBrush x:Key="CardBackground" Color="White"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#1E3A8A"/>
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="8" ShadowDepth="2" Color="#66000000"/>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </Application.Resources>
+    
 </Application>

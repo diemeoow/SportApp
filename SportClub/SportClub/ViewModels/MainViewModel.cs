@@ -18,32 +18,42 @@ namespace SportClub.ViewModels
 		public SubscriptionsViewModel SubscriptionsVM { get; }
 		public RoomsViewModel RoomsVM { get; }
 		public EquipmentViewModel EquipmentVM { get; }
-		public ICommand ExportJsonCommand { get; }
-		public ICommand ImportJsonCommand { get; }
+
+		public object CurrentView { get; private set; }
+		public ICommand NavigateCommand { get; }
 
 		public MainViewModel(
-		  ClientsViewModel clients,
-		  TrainersViewModel trainers,
-		  WorkoutsViewModel workouts,
-		  SubscriptionsViewModel subs,
-		  RoomsViewModel rooms,
-		  EquipmentViewModel equip,
-		  IJsonService json)
+			ClientsViewModel clientsVM,
+			TrainersViewModel trainersVM,
+			WorkoutsViewModel workoutsVM,
+			SubscriptionsViewModel subscriptionsVM,
+			RoomsViewModel roomsVM,
+			EquipmentViewModel equipmentVM)
 		{
-			ClientsVM = clients;
-			TrainersVM = trainers;
-			WorkoutsVM = workouts;
-			SubscriptionsVM = subs;
-			RoomsVM = rooms;
-			EquipmentVM = equip;
+			ClientsVM = clientsVM;
+			TrainersVM = trainersVM;
+			WorkoutsVM = workoutsVM;
+			SubscriptionsVM = subscriptionsVM;
+			RoomsVM = roomsVM;
+			EquipmentVM = equipmentVM;
 
-			ExportJsonCommand = new RelayCommand(async _ =>
-			  await json.ExportAsync(ClientsVM.Items, "clients.json"));
-			ImportJsonCommand = new RelayCommand(async _ =>
+			CurrentView = ClientsVM;
+			NavigateCommand = new RelayCommand(OnNavigate);
+		}
+
+		private void OnNavigate(object param)
+		{
+			CurrentView = param switch
 			{
-				var data = await json.ImportAsync<Client>("clients.json");
-				await ClientsVM.ImportAsync(data);
-			});
+				"Clients" => ClientsVM,
+				"Trainers" => TrainersVM,
+				"Workouts" => WorkoutsVM,
+				"Subscriptions" => SubscriptionsVM,
+				"Rooms" => RoomsVM,
+				"Equipment" => EquipmentVM,
+				_ => CurrentView
+			};
+			OnPropertyChanged(nameof(CurrentView));
 		}
 	}
 }
