@@ -17,9 +17,9 @@ namespace SportClub.ViewModels
 			var e = new Equipment
 			{
 				Name = "Новое оборудование",
-				EquipmentTypeId = 1,
-				EquipmentConditionId = 1,
-				RoomId = 1
+				EquipmentTypeId = 6,       // ✅ беговая дорожка
+				EquipmentConditionId = 4,  // ✅ исправно
+				RoomId = 4
 			};
 			await _repo.AddAsync(e);
 			await LoadAsync();

@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SportClub.Models
 {
+	[Table("subscription")]
 	public class Subscription
 	{
+		[Key]
+		[Column("id")]
 		public int Id { get; set; }
-		public string Name { get; set; }
-		public decimal Price { get; set; }
-		public int DurationDays { get; set; }
 
-		// Обратная навигация
-		public ICollection<Client> Clients { get; set; }
+		[Column("name")]
+		public string Name { get; set; }
+
+		[Column("subscription_type_id")]
+		public int SubscriptionTypeId { get; set; }
+		public SubscriptionType SubscriptionType { get; set; }
+
+		[Column("deadline_action")]
+		public int DurationDays { get; set; }   // <- переименовали
+
+		[Column("date_started")]
+		public DateTime DateStarted { get; set; }
 	}
 }

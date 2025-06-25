@@ -12,8 +12,8 @@ namespace SportClub.ViewModels
 			var c = new Client
 			{
 				FullName = "Новый клиент",
-				Phone_num = "+70000000000",
-				Date_registration = DateTime.Now
+				PhoneNum = "+70000000000",          // было Phone_num
+				DateRegistration = DateTime.UtcNow     // было Date_registration
 			};
 			await _repo.AddAsync(c);
 			await LoadAsync();

@@ -17,8 +17,9 @@ namespace SportClub.ViewModels
 			var s = new Subscription
 			{
 				Name = "Новый абонемент",
-				Price = 0,
-				DurationDays = 30
+				SubscriptionTypeId = 6,
+				DurationDays = 30,                 // колонка deadline_action
+				DateStarted = DateTime.UtcNow         // колонка date_started
 			};
 			await _repo.AddAsync(s);
 			await LoadAsync();

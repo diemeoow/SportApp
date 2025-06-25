@@ -18,7 +18,7 @@ namespace SportClub.ViewModels
 			{
 				Name = "Новый зал",
 				Capacity = 10,
-				RoomTypeId = 1
+				RoomTypeId = 6
 			};
 			await _repo.AddAsync(r);
 			await LoadAsync();

@@ -6,6 +6,7 @@ using SportClub.Services;
 using SportClub.ViewModels;
 using System.Windows;
 using Npgsql.EntityFrameworkCore.PostgreSQL; // для UseNpgsql
+using EFCore.NamingConventions;
 
 namespace SportClub
 {
@@ -16,7 +17,8 @@ namespace SportClub
 			var services = new ServiceCollection();
 
 			services.AddDbContext<AppDbContext>(options =>
-				options.UseNpgsql("Host=localhost;Database=SportBase;Username=postgres;Password=sa")); // 👈 теперь работает
+	options.UseNpgsql("Host=localhost;Database=SportBase;Username=postgres;Password=sa")
+		   .UseSnakeCaseNamingConvention()); 
 
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddSingleton<IJsonService, JsonService>();

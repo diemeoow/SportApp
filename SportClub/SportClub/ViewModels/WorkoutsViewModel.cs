@@ -17,10 +17,10 @@ namespace SportClub.ViewModels
 			var w = new Workout
 			{
 				Name = "Новое занятие",
-				TypeOfWorkoutId = 1,
-				TrainerId = 1,
-				RoomId = 1,
-				Date = DateTime.Today,
+				TypeOfWorkoutId = 6,
+				TrainerId = 2,
+				RoomId = 2,
+				Date = DateTime.UtcNow.Date,
 				Time = TimeSpan.FromHours(10),
 				Duration = 60
 			};

@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace SportClub.Models
 {
-	[Table("type_of_workout")]
-	public class TypeOfWorkout
+	[Table("evaluation_event")]
+	public class EvaluationEvent
 	{
 		[Key]
 		[Column("id")]
 		public int Id { get; set; }
 
-		[Column("name")]
-		public string Name { get; set; }
+		[Column("event_id")]
+		public int? EventId { get; set; }
 
-		[Column("individual")]
-		public bool? Individual { get; set; }
+		[Column("app_user_id")]
+		public int? AppUserId { get; set; }
 
-		[Column("is_individual")]
-		public bool? IsIndividual { get; set; }
+		[Column("appraisal")]
+		public int? Appraisal { get; set; }
+
+		[Column("commentary")]
+		public string Commentary { get; set; }
 	}
 }

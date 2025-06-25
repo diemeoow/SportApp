@@ -14,8 +14,8 @@ namespace SportClub.ViewModels
 			{
 				FullName = "Новый тренер",
 				PhoneNum = "+70000000001",
-				DateOfAcceptance = DateTime.Now,
-				SpecializationId = 1
+				SpecializationId = 6,
+				DateOfAcceptance = DateTime.UtcNow
 			};
 			await _repo.AddAsync(t);
 			await LoadAsync();
