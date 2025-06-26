@@ -1,0 +1,34 @@
+﻿<Window x:Class="SportClub.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SportClub Admin"
+        xmlns:views="clr-namespace:SportClub.Views"
+        xmlns:vm="clr-namespace:SportClub.ViewModels"
+        Height="600" Width="900"
+        Background="{StaticResource AppBackground}"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel>
+        <!-- Top Toolbar -->
+        <ToolBar DockPanel.Dock="Top">
+            <Button Content="Импорт JSON" Command="{Binding ImportJsonCommand}" Margin="2"/>
+            <Button Content="Экспорт JSON" Command="{Binding ExportJsonCommand}" Margin="2"/>
+        </ToolBar>
+
+        <!-- TabControl for Entities -->
+        <TabControl ItemsSource="{Binding Tabs}" 
+                    SelectedItem="{Binding SelectedEntity}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <views:GenericEntityView DataContext="{Binding}"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </DockPanel>
+</Window>
