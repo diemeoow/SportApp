@@ -43,24 +43,104 @@
                 <StackPanel>
                     <TextBlock Text="Меню" FontSize="20" FontWeight="Bold"
                                Margin="0,0,0,6" Foreground="{StaticResource AccentBrush}"/>
-                    <Button Content="Клиенты"
-                            Command="{Binding NavigateCommand}" CommandParameter="Clients"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
-                    <Button Content="Тренеры"
-                            Command="{Binding NavigateCommand}" CommandParameter="Trainers"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
-                    <Button Content="Тренировки"
-                            Command="{Binding NavigateCommand}" CommandParameter="Workouts"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
-                    <Button Content="Абонементы"
-                            Command="{Binding NavigateCommand}" CommandParameter="Subscriptions"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
-                    <Button Content="Помещения"
-                            Command="{Binding NavigateCommand}" CommandParameter="Rooms"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
-                    <Button Content="Оборудование"
-                            Command="{Binding NavigateCommand}" CommandParameter="Equipment" 
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch"/>
+                    <TabControl>
+                        <TabItem Header="AppUser">
+                            <views:GenericEntityView DataContext="{Binding AppUserVM}"/>
+                        </TabItem>
+                        <TabItem Header="Award">
+                            <views:GenericEntityView DataContext="{Binding AwardVM}"/>
+                        </TabItem>
+                        <TabItem Header="BookingRoom">
+                            <views:GenericEntityView DataContext="{Binding BookingRoomVM}"/>
+                        </TabItem>
+                        <TabItem Header="CancellationExercise">
+                            <views:GenericEntityView DataContext="{Binding CancellationExerciseVM}"/>
+                        </TabItem>
+                        <TabItem Header="Client">
+                            <views:GenericEntityView DataContext="{Binding ClientsVM}"/>
+                        </TabItem>
+                        <TabItem Header="Equipment">
+                            <views:GenericEntityView DataContext="{Binding EquipmentVM}"/>
+                        </TabItem>
+                        <TabItem Header="EquipmentCondition">
+                            <views:GenericEntityView DataContext="{Binding EquipmentConditionVM}"/>
+                        </TabItem>
+                        <TabItem Header="EquipmentType">
+                            <views:GenericEntityView DataContext="{Binding EquipmentTypeVM}"/>
+                        </TabItem>
+                        <TabItem Header="EvaluationEvent">
+                            <views:GenericEntityView DataContext="{Binding EvaluationEventVM}"/>
+                        </TabItem>
+                        <TabItem Header="Event">
+                            <views:GenericEntityView DataContext="{Binding EventVM}"/>
+                        </TabItem>
+                        <TabItem Header="EventType">
+                            <views:GenericEntityView DataContext="{Binding EventTypeVM}"/>
+                        </TabItem>
+                        <TabItem Header="GroupParticipant">
+                            <views:GenericEntityView DataContext="{Binding GroupParticipantVM}"/>
+                        </TabItem>
+                        <TabItem Header="HealthIndicators">
+                            <views:GenericEntityView DataContext="{Binding HealthIndicatorsVM}"/>
+                        </TabItem>
+                        <TabItem Header="MaintenanceOfEquipment">
+                            <views:GenericEntityView DataContext="{Binding MaintenanceOfEquipmentVM}"/>
+                        </TabItem>
+                        <TabItem Header="Notification">
+                            <views:GenericEntityView DataContext="{Binding NotificationVM}"/>
+                        </TabItem>
+                        <TabItem Header="ParticipantEvent">
+                            <views:GenericEntityView DataContext="{Binding ParticipantEventVM}"/>
+                        </TabItem>
+                        <TabItem Header="RecordStatus">
+                            <views:GenericEntityView DataContext="{Binding RecordStatusVM}"/>
+                        </TabItem>
+                        <TabItem Header="RecordToWorkout">
+                            <views:GenericEntityView DataContext="{Binding RecordToWorkoutVM}"/>
+                        </TabItem>
+                        <TabItem Header="ReplacementTrainer">
+                            <views:GenericEntityView DataContext="{Binding ReplacementTrainerVM}"/>
+                        </TabItem>
+                        <TabItem Header="RoleUser">
+                            <views:GenericEntityView DataContext="{Binding RoleUserVM}"/>
+                        </TabItem>
+                        <TabItem Header="Room">
+                            <views:GenericEntityView DataContext="{Binding RoomsVM}"/>
+                        </TabItem>
+                        <TabItem Header="RoomType">
+                            <views:GenericEntityView DataContext="{Binding RoomTypeVM}"/>
+                        </TabItem>
+                        <TabItem Header="Schedule">
+                            <views:GenericEntityView DataContext="{Binding ScheduleVM}"/>
+                        </TabItem>
+                        <TabItem Header="Subscription">
+                            <views:GenericEntityView DataContext="{Binding SubscriptionsVM}"/>
+                        </TabItem>
+                        <TabItem Header="SubscriptionType">
+                            <views:GenericEntityView DataContext="{Binding SubscriptionTypeVM}"/>
+                        </TabItem>
+                        <TabItem Header="Trainer">
+                            <views:GenericEntityView DataContext="{Binding TrainersVM}"/>
+                        </TabItem>
+                        <TabItem Header="TrainerLoad">
+                            <views:GenericEntityView DataContext="{Binding TrainerLoadVM}"/>
+                        </TabItem>
+                        <TabItem Header="TrainerSpecialization">
+                            <views:GenericEntityView DataContext="{Binding TrainerSpecializationVM}"/>
+                        </TabItem>
+                        <TabItem Header="TypeOfWorkout">
+                            <views:GenericEntityView DataContext="{Binding TypeOfWorkoutVM}"/>
+                        </TabItem>
+                        <TabItem Header="VisitHistory">
+                            <views:GenericEntityView DataContext="{Binding VisitHistoryVM}"/>
+                        </TabItem>
+                        <TabItem Header="Workout">
+                            <views:GenericEntityView DataContext="{Binding WorkoutsVM}"/>
+                        </TabItem>
+                        <TabItem Header="WorkoutGroup">
+                            <views:GenericEntityView DataContext="{Binding WorkoutGroupVM}"/>
+                        </TabItem>
+                    </TabControl>
                 </StackPanel>
             </Border>
 
