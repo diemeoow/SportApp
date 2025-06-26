@@ -16,8 +16,23 @@ namespace SportClub.Services
 			_dbSet = context.Set<T>();
 		}
 
-		public async Task<List<T>> GetAllAsync() => await _dbSet.ToListAsync();
-		public async Task<T> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
+        public async Task<List<T>> GetAllAsync()
+        {
+            var query = _dbSet.AsQueryable();
+
+            // Автоматически подключаем навигационные свойства
+            var navProperties = _context.Model.FindEntityType(typeof(T))
+             .GetNavigations()
+             .Select(n => n.Name);
+
+            foreach (var nav in navProperties)
+            {
+                query = query.Include(nav);
+            }
+
+            return await query.ToListAsync();
+        }
+        public async Task<T> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 		public async Task AddAsync(T entity)
 		{
 

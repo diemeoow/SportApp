@@ -19,7 +19,9 @@ namespace SportClub.ViewModels
 		public RoomsViewModel RoomsVM { get; }
 		public EquipmentViewModel EquipmentVM { get; }
 
-		public object CurrentView { get; private set; }
+        public ICommand ExportJsonCommand { get; }
+        public ICommand ImportJsonCommand { get; }
+        public object CurrentView { get; private set; }
 		public ICommand NavigateCommand { get; }
 
 		public MainViewModel(
@@ -36,12 +38,23 @@ namespace SportClub.ViewModels
 			SubscriptionsVM = subscriptionsVM;
 			RoomsVM = roomsVM;
 			EquipmentVM = equipmentVM;
+            ExportJsonCommand = new RelayCommand(async _ => await ExportJsonAsync());
+            ImportJsonCommand = new RelayCommand(async _ => await ImportJsonAsync());
 
-			CurrentView = ClientsVM;
+            CurrentView = ClientsVM;
 			NavigateCommand = new RelayCommand(OnNavigate);
 		}
-
-		private void OnNavigate(object param)
+        private async Task ExportJsonAsync()
+        {
+            if (CurrentView is IJsonCapable vm)
+                vm.ExportCommand.Execute(null);
+        }
+        private async Task ImportJsonAsync()
+        {
+            if (CurrentView is IJsonCapable vm)
+                vm.ImportCommand.Execute(null);
+        }
+        private void OnNavigate(object param)
 		{
 			CurrentView = param switch
 			{

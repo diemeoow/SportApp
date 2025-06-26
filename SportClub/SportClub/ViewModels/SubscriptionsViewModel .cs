@@ -10,7 +10,7 @@ namespace SportClub.ViewModels
 {
 	public class SubscriptionsViewModel : BaseEntityViewModel<Subscription>
 	{
-		public SubscriptionsViewModel(IRepository<Subscription> repo) : base(repo) { }
+		public SubscriptionsViewModel(IRepository<Subscription> repo, IJsonService json) : base(repo, json) { }
 
 		public override async Task AddAsync()
 		{

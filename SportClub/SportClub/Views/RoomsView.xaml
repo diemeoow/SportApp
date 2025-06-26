@@ -1,32 +1,28 @@
 ﻿<UserControl x:Class="SportClub.Views.RoomsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Background="{StaticResource AppBackground}"
               xmlns:views="clr-namespace:SportClub.Views"
 xmlns:vm="clr-namespace:SportClub.ViewModels">
 
     <Grid Margin="10">
-        <Border Background="{StaticResource CardBackground}" 
-                CornerRadius="8" Padding="10" 
-                Effect="{StaticResource CardShadow}">
-            <DockPanel>
-                <ToolBar DockPanel.Dock="Top" Background="Transparent">
-                    <Button Content="Загрузить" Command="{Binding LoadCommand}" Style="{StaticResource ActionButton}"/>
-                    <Button Content="Добавить"  Command="{Binding AddCommand}"  Style="{StaticResource ActionButton}"/>
-                    <Button Content="Удалить"  Command="{Binding DeleteCommand}" Style="{StaticResource ActionButton}"/>
-                </ToolBar>
-                <DataGrid ItemsSource="{Binding Items}"
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top" Background="Transparent">
+                <Button Content="Загрузить" Command="{Binding LoadCommand}" Style="{StaticResource ActionButton}"/>
+                <Button Content="Добавить"  Command="{Binding AddCommand}"  Style="{StaticResource ActionButton}"/>
+                <Button Content="Удалить"  Command="{Binding DeleteCommand}" Style="{StaticResource ActionButton}"/>
+            </ToolBar>
+            <DataGrid ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           SelectionMode="Single"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                           Margin="0,10,0,0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Имя"       Binding="{Binding Name}"             Width="auto"/>
-                        <DataGridTextColumn Header="Вместимость" Binding="{Binding Capacity}"       Width="auto"/>
-                        <DataGridTextColumn Header="Тип"       Binding="{Binding RoomType.Name}"   Width="auto"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </DockPanel>
-        </Border>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя"       Binding="{Binding Name}"             Width="auto"/>
+                    <DataGridTextColumn Header="Вместимость" Binding="{Binding Capacity}"       Width="auto"/>
+                    <DataGridTextColumn Header="Тип"       Binding="{Binding RoomType.Name}"   Width="auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
     </Grid>
 </UserControl>

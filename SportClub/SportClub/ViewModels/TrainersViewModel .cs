@@ -6,7 +6,7 @@ namespace SportClub.ViewModels
 {
 	public class TrainersViewModel : BaseEntityViewModel<Trainer>
 	{
-		public TrainersViewModel(IRepository<Trainer> repo) : base(repo) { }
+		public TrainersViewModel(IRepository<Trainer> repo, IJsonService json) : base(repo, json) { }
 
 		public override async Task AddAsync()
 		{

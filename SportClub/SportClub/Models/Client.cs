@@ -18,7 +18,7 @@ namespace SportClub.Models
 		public string? FullName { get; set; }
 
 		[Column("phone_num")]
-		public string PhoneNum { get; set; }
+		public string? PhoneNum { get; set; }
 
 		[Column("date_registration")]
 		public DateTime? DateRegistration { get; set; }

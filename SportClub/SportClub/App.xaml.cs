@@ -41,8 +41,9 @@ namespace SportClub
 					services.AddTransient<EquipmentViewModel>();
 					services.AddSingleton<MainViewModel>();
 
-					// Views
-					services.AddTransient<MainWindow>();
+
+                    // Views
+                    services.AddTransient<MainWindow>();
 				})
 				.Build();
 		}

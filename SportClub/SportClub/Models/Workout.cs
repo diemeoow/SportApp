@@ -20,19 +20,18 @@ namespace SportClub.Models
 		[Column("type_of_workout_id")]
 		public int? TypeOfWorkoutId { get; set; }
 
-		// ← Навигационное свойство
 		public TypeOfWorkout Type { get; set; }
 
 		[Column("trainer_id")]
 		public int? TrainerId { get; set; }
 
-		// ← Навигационное свойство
+	
 		public Trainer Trainer { get; set; }
 
 		[Column("room_id")]
 		public int? RoomId { get; set; }
 
-		// ← Навигационное свойство
+		
 		public Room Room { get; set; }
 
 		[Column("date")]

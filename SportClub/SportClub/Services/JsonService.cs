@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace SportClub.Services
 {
-	public class JsonService : IJsonService
-	{
-		private readonly JsonSerializerOptions _options = new JsonSerializerOptions { WriteIndented = true };
-		public async Task ExportAsync<T>(IEnumerable<T> data, string filePath)
-		{
-			await using var fs = File.Create(filePath);
-			await JsonSerializer.SerializeAsync(fs, data, _options);
-		}
-		public async Task<IEnumerable<T>> ImportAsync<T>(string filePath)
-		{
-			await using var fs = File.OpenRead(filePath);
-			return await JsonSerializer.DeserializeAsync<IEnumerable<T>>(fs, _options) ?? Enumerable.Empty<T>();
-		}
-	}
+    public class JsonService : IJsonService
+    {
+        public async Task ExportAsync<T>(IEnumerable<T> data, string filePath)
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(data, options);
+            await File.WriteAllTextAsync(filePath, json);
+        }
+
+        public async Task<IEnumerable<T>> ImportAsync<T>(string filePath)
+        {
+            var json = await File.ReadAllTextAsync(filePath);
+            return JsonSerializer.Deserialize<IEnumerable<T>>(json);
+        }
+    }
 }

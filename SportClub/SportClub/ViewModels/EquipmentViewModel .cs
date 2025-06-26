@@ -10,15 +10,15 @@ namespace SportClub.ViewModels
 {
 	public class EquipmentViewModel : BaseEntityViewModel<Equipment>
 	{
-		public EquipmentViewModel(IRepository<Equipment> repo) : base(repo) { }
+		public EquipmentViewModel(IRepository<Equipment> repo, IJsonService json) : base(repo, json) { }
 
-		public override async Task AddAsync()
+        public override async Task AddAsync()
 		{
 			var e = new Equipment
 			{
 				Name = "Новое оборудование",
-				EquipmentTypeId = 6,       // ✅ беговая дорожка
-				EquipmentConditionId = 4,  // ✅ исправно
+				EquipmentTypeId = 6,       
+				EquipmentConditionId = 4,  
 				RoomId = 4
 			};
 			await _repo.AddAsync(e);
