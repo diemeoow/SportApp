@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="SportClub.Views.EntityView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:SportClub.ViewModels"
              xmlns:local="clr-namespace:SportClub.Views"
              Background="{StaticResource AppBackground}">
 

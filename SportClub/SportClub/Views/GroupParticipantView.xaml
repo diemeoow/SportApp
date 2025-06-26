@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SportClub.Views.GroupParticipantView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:vm="clr-namespace:SportClub.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Content="Загрузить" Command="{Binding LoadCommand}"/>
+                <Button Content="Добавить" Command="{Binding AddCommand}"/>
+                <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
+            </ToolBar>
+            <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Группа" Binding="{Binding WorkoutGroup.Name}"/>
+                    <DataGridTextColumn Header="Участник" Binding="{Binding AppUser.Login}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>

@@ -25,8 +25,8 @@ namespace SportClub
 
 		public MainWindow(MainViewModel vm)
 		{
-			InitializeComponent();
 			DataContext = vm; // ничего вручную не создаём
+			InitializeComponent();
 		}
 	}
 }

@@ -33,29 +33,60 @@ namespace SportClub
 					services.AddSingleton<IJsonService, JsonService>();
 
 					// ViewModels
+					services.AddSingleton<MainViewModel>();
+
+					services.AddTransient<AppUserViewModel>();
+					services.AddTransient<RoleUserViewModel>();
 					services.AddTransient<ClientsViewModel>();
 					services.AddTransient<TrainersViewModel>();
 					services.AddTransient<WorkoutsViewModel>();
+					services.AddTransient<WorkoutGroupViewModel>();
+					services.AddTransient<TypeOfWorkoutViewModel>();
 					services.AddTransient<SubscriptionsViewModel>();
+					services.AddTransient<SubscriptionTypeViewModel>();
+					services.AddTransient<HealthIndicatorsViewModel>();
+					services.AddTransient<VisitHistoryViewModel>();
+					services.AddTransient<TrainerLoadViewModel>();
+					services.AddTransient<GroupParticipantViewModel>();
 					services.AddTransient<RoomsViewModel>();
+					services.AddTransient<BookingRoomViewModel>();
+					services.AddTransient<ScheduleViewModel>();
 					services.AddTransient<EquipmentViewModel>();
-					services.AddSingleton<MainViewModel>();
+					services.AddTransient<EquipmentTypeViewModel>();
+					services.AddTransient<EquipmentConditionViewModel>();
+					services.AddTransient<MaintenanceOfEquipmentViewModel>();
+					services.AddTransient<CancellationExerciseViewModel>();
+					services.AddTransient<ReplacementTrainerViewModel>();
+					services.AddTransient<EventViewModel>();
+					services.AddTransient<EventTypeViewModel>();
+					services.AddTransient<ParticipantEventViewModel>();
+					services.AddTransient<AwardViewModel>();
+					services.AddTransient<NotificationViewModel>();
+					services.AddTransient<RecordToWorkoutViewModel>();
+					services.AddTransient<RecordStatusViewModel>();
 
 
-                    // Views
-                    services.AddTransient<MainWindow>();
+
+					// Views
+					services.AddSingleton<MainWindow>(provider => new MainWindow(
+				provider.GetRequiredService<MainViewModel>()
+			));
 				})
 				.Build();
 		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			AppHost.StartAsync().GetAwaiter().GetResult();
-
-			var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-			mainWindow.Show();
-
-			base.OnStartup(e);
+			try
+			{
+				AppHost.StartAsync().GetAwaiter().GetResult();
+				var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
+				mainWindow.Show();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Ошибка при запуске: {ex.Message}\n{ex.StackTrace}");
+			}
 		}
 	}
 }

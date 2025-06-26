@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="SportClub.Views.AppUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:vm="clr-namespace:SportClub.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Content="Загрузить" Command="{Binding LoadCommand}"/>
+                <Button Content="Добавить" Command="{Binding AddCommand}"/>
+                <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
+            </ToolBar>
+            <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding RoleUser.Name}"/>
+                    <DataGridTextColumn Header="Тренер" Binding="{Binding Trainer.FullName}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>
