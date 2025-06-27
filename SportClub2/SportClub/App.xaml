@@ -12,7 +12,7 @@
         <SolidColorBrush x:Key="CardBackground" Color="White"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#1E3A8A"/>
         <DropShadowEffect x:Key="CardShadow" BlurRadius="8" ShadowDepth="2" Color="#66000000"/>
-        
+
         <Style x:Key="ActionButton" TargetType="Button">
             <Setter Property="Margin" Value="4"/>
             <Setter Property="Padding" Value="8,4"/>
@@ -21,6 +21,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
         </Style>
     </Application.Resources>
     

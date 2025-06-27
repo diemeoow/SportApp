@@ -12,12 +12,15 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using SportClub.Views;
+using System.Windows;
 
 namespace SportClub.ViewModels
 {
 	public class MainViewModel : BaseViewModel
 	{
-		private readonly IServiceProvider _services;
+        public ICommand NavigateToTableCommand { get; }
+
+        private readonly IServiceProvider _services;
 		private readonly IJsonService _jsonService;
 		public ObservableCollection<string> Tables { get; } = new();
 		private string _selectedTable;
@@ -40,6 +43,7 @@ namespace SportClub.ViewModels
 			get => _selectedItem;
 			set { _selectedItem = value; OnPropertyChanged(); }
 		}
+
 		public ICommand NavigateCommand { get; }
 		public ICommand RefreshCommand { get; }
 		public ICommand SaveCommand { get; }
@@ -57,52 +61,127 @@ namespace SportClub.ViewModels
 			get => _currentView;
 			set { _currentView = value; OnPropertyChanged(); }
 		}
-		public MainViewModel(IServiceProvider services)
-		{
-			_services = services;
-			_jsonService = services.GetRequiredService<IJsonService>();
+        public MainViewModel(IServiceProvider services)
+        {
+            _services = services;
+            _jsonService = services.GetRequiredService<IJsonService>();
 
-			RefreshCommand = new RelayCommand(async _ => await LoadTableAsync());
-			SaveCommand = new RelayCommand(async _ => await SaveAsync(), _ => SelectedItem != null);
-			AddCommand = new RelayCommand(_ => AddNew(), _ => _currentType != null);
-			DeleteCommand = new RelayCommand(async _ => await DeleteAsync(), _ => SelectedItem != null);
-			ImportCommand = new RelayCommand(async _ => await ImportAsync(), _ => _currentType != null);
-			ExportCommand = new RelayCommand(async _ => await ExportAsync(), _ => Items.Any());
-			NavigateCommand = new RelayCommand(param =>
-			{
-				if (param is string tableName)
-				{
-					SelectedTable = tableName; // для таблицы
-					CurrentView = new GenericTableView(); // просто универсальное представление
-				}
-			});
+            // Команды
+            RefreshCommand = new RelayCommand(async _ => await LoadTableAsync());
+            SaveCommand = new RelayCommand(async _ => await SaveAsync(), _ => SelectedItem != null);
+            AddCommand = new RelayCommand(_ => AddNew(), _ => _currentType != null);
+            DeleteCommand = new RelayCommand(async _ => await DeleteAsync(), _ => SelectedItem != null);
+            ImportCommand = new RelayCommand(async _ => await ImportAsync(), _ => _currentType != null);
+            ExportCommand = new RelayCommand(async _ => await ExportAsync(), _ => Items.Any());
+            NavigateCommand = new RelayCommand(param =>
+            {
+                if (param is string tableName)
+                {
+                    SelectedTable = tableName;
+                    CurrentView = new GenericTableView();
+                }
+            });
+            NavigateToTableCommand = new RelayCommand(param =>
+            {
+                if (param is string tableName)
+                {
+                    SelectedTable = tableName;
+                    CurrentView = new GenericTableView();
+                }
+            });
 
-			// discover tables from AppDbContext DbSet<> properties
-			var ctxType = typeof(Data.AppDbContext);
-			var props = ctxType.GetProperties()
-				.Where(p => p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(Microsoft.EntityFrameworkCore.DbSet<>));
-			foreach (var p in props)
-				Tables.Add(p.Name);
+            // Инициализация таблиц
+            InitializeTables();
+            SelectedTable = Tables.FirstOrDefault();
+        }
 
-			SelectedTable = Tables.FirstOrDefault();
-		}
 
-		private async Task LoadTableAsync()
-		{
-			if (string.IsNullOrEmpty(SelectedTable)) return;
-			Items.Clear();
-			_currentType = GetEntityType(SelectedTable);
-			var repoType = typeof(IRepository<>).MakeGenericType(_currentType);
-			_currentRepo = _services.GetRequiredService(repoType);
-			var getAll = repoType.GetMethod("GetAllAsync");
-			var task = (Task)getAll.Invoke(_currentRepo, null);
-			await task.ConfigureAwait(false);
-			var result = ((dynamic)task).Result as System.Collections.IEnumerable;
-			foreach (var item in result)
-				Items.Add(item);
-		}
+        private void InitializeTables()
+        {
+            Tables.Clear();
 
-		private async Task SaveAsync()
+            // Добавляем все 32 таблицы
+            Tables.Add("Clients");
+            Tables.Add("Subscriptions");
+            Tables.Add("Trainers");
+            Tables.Add("TrainerSpecializations");
+            Tables.Add("Workouts");
+            Tables.Add("Rooms");
+            Tables.Add("RoomTypes");
+            Tables.Add("Equipment");
+            Tables.Add("EquipmentTypes");
+            Tables.Add("EquipmentConditions");
+            Tables.Add("RoleUsers");
+            Tables.Add("AppUsers");
+            Tables.Add("HealthIndicators");
+            Tables.Add("SubscriptionTypes");
+            Tables.Add("MaintenanceOfEquipment");
+            Tables.Add("TypesOfWorkout");
+            Tables.Add("WorkoutGroups");
+            Tables.Add("GroupParticipants");
+            Tables.Add("Schedules");
+            Tables.Add("BookingRooms");
+            Tables.Add("CancellationExercises");
+            Tables.Add("ReplacementTrainers");
+            Tables.Add("RecordStatuses");
+            Tables.Add("RecordToWorkouts");
+            Tables.Add("VisitHistories");
+            Tables.Add("TrainerLoads");
+            Tables.Add("EventTypes");
+            Tables.Add("Events");
+            Tables.Add("ParticipantEvents");
+            Tables.Add("Awards");
+            Tables.Add("EvaluationEvents");
+            Tables.Add("Notifications");
+        }
+
+        private async Task LoadTableAsync()
+        {
+            if (string.IsNullOrEmpty(SelectedTable)) return;
+
+            try
+            {
+                // Переключаемся в UI поток для очистки
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    Items.Clear();
+                    SelectedItem = null;
+                    OnPropertyChanged(nameof(Items)); // Принудительное обновление привязки
+                });
+
+                // Получаем данные в фоновом потоке
+                _currentType = GetEntityType(SelectedTable);
+                var repoType = typeof(IRepository<>).MakeGenericType(_currentType);
+                _currentRepo = _services.GetRequiredService(repoType);
+
+                var getAll = repoType.GetMethod("GetAllAsync");
+                var task = (Task)getAll.Invoke(_currentRepo, null);
+                await task.ConfigureAwait(false);
+
+                var result = ((dynamic)task).Result as System.Collections.IEnumerable;
+                var data = new List<object>();
+                foreach (var item in result)
+                    data.Add(item);
+
+                // Обновляем UI в главном потоке
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    Items.Clear();
+                    foreach (var item in data)
+                        Items.Add(item);
+                    OnPropertyChanged(nameof(Items)); // Явное обновление привязки
+                });
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    MessageBox.Show($"Ошибка загрузки данных: {ex.Message}");
+                });
+            }
+        }
+
+        private async Task SaveAsync()
 		{
 			var repoType = _currentRepo.GetType();
 			var update = repoType.GetMethod("UpdateAsync");
@@ -159,5 +238,6 @@ namespace SportClub.ViewModels
 			var prop = ctxType.GetProperty(dbSetName);
 			return prop.PropertyType.GetGenericArguments()[0];
 		}
+
 	}
 }

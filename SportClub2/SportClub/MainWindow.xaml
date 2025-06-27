@@ -2,36 +2,37 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SportClub Admin"
-        xmlns:views="clr-namespace:SportClub.Views"
-        xmlns:vm="clr-namespace:SportClub.ViewModels"
-        Height="600" Width="900"
+        Height="800" Width="1200"
         Background="{StaticResource AppBackground}"
         WindowStartupLocation="CenterScreen">
 
     <DockPanel>
         <!-- Top Toolbar -->
         <Border DockPanel.Dock="Top"
-         Background="{StaticResource AccentBrush}"
-         Effect="{StaticResource CardShadow}"
-         CornerRadius="0,0,6,6" Padding="10">
+                Background="{StaticResource AccentBrush}"
+                Effect="{StaticResource CardShadow}"
+                CornerRadius="0,0,6,6" Padding="10">
             <TextBlock Text="Панель управления SportClub"
-                   FontSize="26" FontWeight="SemiBold"
-                   Margin="10"
-                   Foreground="{StaticResource AppBackground}"/>
+                       FontSize="26" FontWeight="SemiBold"
+                       Margin="10"
+                       Foreground="White"/>
         </Border>
+
+        <!-- Bottom Toolbar -->
         <ToolBar DockPanel.Dock="Bottom" Background="{StaticResource AccentBrush}">
             <Button Content="Экспорт JSON"
-                    Command="{Binding ExportJsonCommand}"
+                    Command="{Binding ExportCommand}"
                     Style="{StaticResource ActionButton}"
                     Background="White" Foreground="{StaticResource AccentBrush}"/>
             <Button Content="Импорт JSON"
-                    Command="{Binding ImportJsonCommand}"
+                    Command="{Binding ImportCommand}"
                     Style="{StaticResource ActionButton}"
                     Background="White" Foreground="{StaticResource AccentBrush}"/>
         </ToolBar>
+
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -40,20 +41,29 @@
                     Background="{StaticResource CardBackground}"
                     Effect="{StaticResource CardShadow}"
                     Margin="10" CornerRadius="8" Padding="10">
-                <StackPanel>
-                    <TextBlock Text="Меню" FontSize="20" FontWeight="Bold"
-                               Margin="0,0,0,6" Foreground="{StaticResource AccentBrush}"/>
-                    <ItemsControl ItemsSource="{Binding Tables}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding}"
-                            Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource ActionButton}" HorizontalAlignment="Stretch" Margin="0,4"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Таблицы" FontSize="20" FontWeight="Bold"
+                                   Margin="0,0,0,10" Foreground="{StaticResource AccentBrush}"/>
+
+                        <ItemsControl ItemsSource="{Binding Tables}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding}"
+                                            Command="{Binding DataContext.NavigateToTableCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource ActionButton}" 
+                                            Margin="5" Width="200"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
 
             <!-- Main Content Area -->
