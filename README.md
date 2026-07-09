@@ -1,5 +1,12 @@
 # SportApp
+[![GitHub repo size](https://img.shields.io/github/repo-size/diemeoow/SportApp)](https://github.com/diemeoow/SportApp)
+[![GitHub last commit](https://img.shields.io/github/last-commit/diemeoow/SportApp)](https://github.com/diemeoow/SportApp/commits/main)
+[![GitHub license](https://img.shields.io/github/license/diemeoow/SportApp)](https://github.com/diemeoow/SportApp/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/diemeoow/SportApp)](https://github.com/diemeoow/SportApp/stargazers)
+## 📌 О проекте
+**SportApp** — это десктопное приложение для управления деятельностью спортивного клуба. Оно решает проблему хаотичного учета клиентов, тренеров, расписания и абонементов, заменяя бумажные журналы и электронные таблицы единой централизованной системой.
 
+**Цель проекта** — предоставить администраторам и менеджерам клуба удобный инструмент для быстрого доступа к данным и эффективного управления ресурсами.
 ## Стек технологий:
 - **.NET 9**
 - **Entity Framework Core**
